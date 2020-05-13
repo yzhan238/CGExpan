@@ -19,7 +19,7 @@ python src/main.py -dataset data/wiki/ -m 2 -gen_thres 3
 
 For APR dataset, run 
 ```
-python src/main.py -dataset data/apr/ -m 1 -gen_thres 2
+python src/main.py -dataset data/apr/ -m 2 -gen_thres 1
 ```
 
 Results for each query will be saved under "./data/\[DATA\]/results"
