@@ -32,3 +32,15 @@ After putting the required files in your dataset folder "./data/\[DATA\]", you c
 ```
 python src/PretrainedEmb.py -dataset data/[DATA]
 ```
+
+## Citations
+
+If you find our work useful for your research, please cite the following paper:
+```
+@inproceedings{Zhang2020CGExpan,
+  title={Empower Entity Set Expansion via Language Model Probing},
+  author={Zhang, Yunyi and Shen, Jiaming and Shang, Jingbo and Han, Jiawei},
+  booktitle={ACL},
+  year={2020}
+}
+```
