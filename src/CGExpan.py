@@ -25,9 +25,9 @@ class CGExpan(object):
 
         self.tokenizer = BertTokenizer.from_pretrained(model_name, do_lower_case = False)
 
-        self.masekdLM = BertForMaskedLM.from_pretrained(model_name, output_hidden_states=True)
-        self.masekdLM.to(device)
-        self.masekdLM.eval()
+        self.maskedLM = BertForMaskedLM.from_pretrained(model_name, output_hidden_states=True)
+        self.maskedLM.to(device)
+        self.maskedLM.eval()
 
         self.k = args.k
         self.gen_thres = args.gen_thres
@@ -165,7 +165,7 @@ class CGExpan(object):
                     mask_pos = (ids == self.tokenizer.mask_token_id).nonzero()[0, 1]
                     ids = ids.cuda()
                     with torch.no_grad():
-                        predictions = self.masekdLM(ids)[0]
+                        predictions = self.maskedLM(ids)[0]
                     _, predicted_index = torch.topk(predictions[0, mask_pos], k=3)
                     predicted_token = [self.tokenizer.convert_ids_to_tokens([idx.item()])[0] for idx in predicted_index]
                     for t in predicted_token:
@@ -331,5 +331,5 @@ class CGExpan(object):
         ids = ids.to('cuda')
         masks = masks.to('cuda')
         with torch.no_grad():
-            batch_final_layer = self.masekdLM(ids, masks)[1][-1]
+            batch_final_layer = self.maskedLM(ids, masks)[1][-1]
         return np.array([final_layer[idx].cpu().numpy() for final_layer, idx in zip(batch_final_layer, mask_pos)])
